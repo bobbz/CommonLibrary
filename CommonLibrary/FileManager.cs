@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -14,6 +15,8 @@ namespace CommonLibrary
     {
         public const int count = 10;
         public readonly int num = 20;
+
+        public enum FileType { TXT, XML, HTML };
         public static string ReadAll(string filename)
         {
             if (string.IsNullOrEmpty(filename))
@@ -28,7 +31,7 @@ namespace CommonLibrary
                 filename = string.Format("{0}\\temp.txt", Environment.CurrentDirectory);
                 File.Create(filename);
                 using (StreamWriter sw = new StreamWriter(filename))
-                {                    
+                {
                     sw.Write(content);
                 }
             }
@@ -112,4 +115,30 @@ namespace CommonLibrary
     {
         
     }
+
+    public class HtmlManager
+    {
+        public static string DownloadHtmlSourceCode(string uri, Encoding encd = null)
+        {
+            WebClient wc = new WebClient();
+            if (encd != null)
+                wc.Encoding = encd;
+            string code = wc.DownloadString(uri);
+
+            return code;
+        }
+        public static string RequestSourceCode(string uri)
+        {
+            string content = "";
+            
+            WebRequest req = WebRequest.Create(uri);
+            
+            WebResponse resp = req.GetResponse();
+            StreamReader sr = new StreamReader(resp.GetResponseStream());
+            content = sr.ReadToEnd();
+            
+            return content;
+        }
+    }
+
 }

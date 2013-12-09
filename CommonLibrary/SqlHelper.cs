@@ -37,7 +37,7 @@ namespace CommonLibrary
             }
         }
 
-        public static DataTable ExcuteDataQuery(string connectionString, string sqlQuery)
+        public static DataTable ExcuteDatatableQuery(string connectionString, string sqlQuery)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -51,5 +51,7 @@ namespace CommonLibrary
             }
             return null;
         }
+
+        //public static
     }
 }
