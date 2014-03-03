@@ -8,8 +8,7 @@ using System.Threading.Tasks;
 namespace CommonLibrary
 {
     public class Mailer
-    {
-        
+    {        
         public static void SendEmail(string client, string title, string body, string from, string password, string to,string attachmentFile=null, string cc = null)
         {
             try
