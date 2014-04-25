@@ -44,7 +44,7 @@ namespace CommonLibrary
                 }
             }
         }
-
+        /*
         public void CopyFiles(string source, string destination, bool overwriteExisting = true, bool logEachFile = true)
         {
             // Validate the input arguments.
@@ -199,26 +199,27 @@ namespace CommonLibrary
                 CopyFiles(source, destination);
             }
         }
-
+        */
     }
 
     public static class ImageManager
     {
-        public static string CaptureScreenshot(string screenshotName)
+        public static string CaptureScreenshot(string screenshotName, string pathToSave)
         {
             Bitmap bmp = new Bitmap(SystemInformation.VirtualScreen.Width, SystemInformation.VirtualScreen.Height);
             using (Graphics g = Graphics.FromImage(bmp))
             {
                 g.CopyFromScreen(SystemInformation.VirtualScreen.X, SystemInformation.VirtualScreen.Y, 0, 0, SystemInformation.VirtualScreen.Size, CopyPixelOperation.SourceCopy);
-                return SaveImage(screenshotName, bmp);
+                return SaveImage(screenshotName, pathToSave, bmp);
             }
         }
 
-        public static string SaveImage(string name, Bitmap image)
+        private static string SaveImage(string name, string pathToSave, Bitmap image)
         {
-            return SaveImage(name, image, ImageFormat.Jpeg);
+            return SaveImage(name, pathToSave, image, ImageFormat.Jpeg);
         }
-        public static string SaveImage(string name, Bitmap image, ImageFormat format)
+       
+        private static string SaveImage(string name, string pathToSave, Bitmap image, ImageFormat format)
         {
             //if (!Directory.Exists(ScreenshotDir))
             //{
@@ -227,7 +228,7 @@ namespace CommonLibrary
 
             // Get a unique filename
             string escapedFileName = ReplaceInvalidFileNameChars(name).Replace(" ", "");
-            string baseFileName = Path.Combine(Environment.CurrentDirectory, escapedFileName);
+            string baseFileName = Path.Combine(string.IsNullOrEmpty(pathToSave) ? Environment.CurrentDirectory : pathToSave, escapedFileName);
             string filename;
             int index = 0;
 
@@ -270,7 +271,7 @@ namespace CommonLibrary
 
     public class XMLManager : FileManager
     {
-        
+
     }
 
     public class HtmlManager
@@ -287,13 +288,13 @@ namespace CommonLibrary
         public static string RequestSourceCode(string uri)
         {
             string content = "";
-            
+
             WebRequest req = WebRequest.Create(uri);
-            
+
             WebResponse resp = req.GetResponse();
             StreamReader sr = new StreamReader(resp.GetResponseStream());
             content = sr.ReadToEnd();
-            
+
             return content;
         }
     }
