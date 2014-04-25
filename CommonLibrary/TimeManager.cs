@@ -10,7 +10,7 @@ namespace CommonLibrary
     public class TimeManager
     {
 
-        public static void RunIn(TimeSpan dueTime, TimerCallback callback)
+        private static void RunIn(TimeSpan dueTime, TimerCallback callback)
         {
             if (TimeSpan.Compare(dueTime, TimeSpan.Zero) < 0)
                 throw new Exception("Due time must equal or larger than 'zero'");
