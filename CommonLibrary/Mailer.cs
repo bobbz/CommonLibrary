@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 namespace CommonLibrary
 {
     public class Mailer
-    {        
-        public static void SendEmail(string client, string title, string body, string from, string password, string to,string attachmentFile=null, string cc = null)
+    {
+        public static void SendEmail(string client, string title, string body, string from, string password, string to, string attachmentFile = null, string cc = null)
         {
             try
             {
                 MailMessage emailMessage = new MailMessage();
-                SmtpClient SmtpClient = new SmtpClient(client);                
+                SmtpClient SmtpClient = new SmtpClient(client);
                 emailMessage.From = new MailAddress(from);
                 emailMessage.To.Add(to);
                 emailMessage.IsBodyHtml = true;
@@ -22,7 +22,7 @@ namespace CommonLibrary
                 emailMessage.Body = body;
                 if (!string.IsNullOrEmpty(attachmentFile))
                 {
-                    if(!System.IO.File.Exists(attachmentFile))
+                    if (!System.IO.File.Exists(attachmentFile))
                     {
                         throw new Exception("Invalid attachment file name or file not exist !");
                     }
