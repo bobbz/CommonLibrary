@@ -41,10 +41,10 @@ namespace CommonLibrary
             try
             {
                 process = Process.Start(startInfo);
-                 string m_stdout = process.StandardOutput.ReadToEnd();
+                string m_stdout = process.StandardOutput.ReadToEnd();
                 //m_stderr = process.StandardError.ReadToEnd();
                 process.WaitForExit();
-                FileManager.WriteFile(m_stdout, "D:\\ping.txt");
+                //FileManager.WriteFile(m_stdout, "D:\\ping.txt");
                 //m_exitCode = process.ExitCode;
             }
             finally

@@ -25,6 +25,28 @@ namespace CommonLibrary
             StreamReader sr = new StreamReader(filename);
             return sr.ReadToEnd();
         }
+
+        public static long GetFileLength(string fileName)
+        {
+            FileInfo fi = new FileInfo(fileName);
+            return GetFileLength(fi);
+        }
+        public static long GetFileLength(FileInfo fi)
+        {
+            long retval;
+            try
+            {
+                retval = fi.Length;
+            }
+            catch (System.IO.FileNotFoundException)
+            {
+                // If a file is no longer present, 
+                // just add zero bytes to the total.
+                retval = 0;
+            }
+            return retval;
+        }
+
         public static void WriteFile(string content, string filename = null, bool append = false, bool appendNewLine = false)
         {
             if (string.IsNullOrEmpty(filename))
@@ -202,7 +224,7 @@ namespace CommonLibrary
         */
     }
 
-    public static class ImageManager
+    public class ImageManager : FileManager
     {
         public static string CaptureScreenshot(string screenshotName, string pathToSave)
         {
@@ -218,7 +240,7 @@ namespace CommonLibrary
         {
             return SaveImage(name, pathToSave, image, ImageFormat.Jpeg);
         }
-       
+
         private static string SaveImage(string name, string pathToSave, Bitmap image, ImageFormat format)
         {
             //if (!Directory.Exists(ScreenshotDir))
@@ -274,7 +296,7 @@ namespace CommonLibrary
 
     }
 
-    public class HtmlManager
+    public class HtmlManager : FileManager
     {
         public static string DownloadHtmlSourceCode(string uri, Encoding encd = null)
         {

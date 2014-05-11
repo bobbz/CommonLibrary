@@ -45,13 +45,12 @@ namespace CommonLibrary
                 using (SqlCommand cmd = new SqlCommand(sqlQuery, conn))
                 {
                     SqlDataAdapter adp = new SqlDataAdapter(cmd);
-                    DataTable result=new DataTable();
+                    DataTable result = new DataTable();
                     adp.Fill(result);
+                    return result;
                 }
-            }
-            return null;
-        }
 
-        
+            }
+        }
     }
 }
