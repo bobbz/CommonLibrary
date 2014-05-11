@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonLibrary", "CommonLibr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildTfsAutoStarterStub", "ConsoleApplication1\BuildTfsAutoStarterStub.csproj", "{FD996258-6FEA-43D4-B965-30506C94CE2F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApplication2", "ConsoleApplication2\ConsoleApplication2.csproj", "{DF11921F-74D7-42D4-BDF2-CADE973F7762}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test", "ConsoleApplication2\test.csproj", "{DF11921F-74D7-42D4-BDF2-CADE973F7762}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
