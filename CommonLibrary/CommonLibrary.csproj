@@ -49,6 +49,7 @@
     </Compile>
     <Compile Include="FileManager.cs" />
     <Compile Include="KeyboardAction.cs" />
+    <Compile Include="Mailer.cs" />
     <Compile Include="MouseAction.cs" />
     <Compile Include="NetworkManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -66,6 +66,30 @@ namespace CommonLibrary
                 }
             }
         }
+        public static string FindLargestFile(string path, string fileExtention, bool allDirectories)
+        {
+            string sPatten = string.Format("*.{0}", fileExtention);
+            List<string> files;
+            try
+            {
+                files = Directory.EnumerateFiles(path, sPatten, allDirectories ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly).ToList<string>();
+                string targetFileName = string.Empty;
+                if (files.Count > 0)
+                {
+                    targetFileName = (from file in files
+                                      let len = GetFileLength(new FileInfo(file))
+                                      where len > 0
+                                      orderby len descending
+                                      select file
+                                             ).First();
+                }
+                return targetFileName;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
         /*
         public void CopyFiles(string source, string destination, bool overwriteExisting = true, bool logEachFile = true)
         {
