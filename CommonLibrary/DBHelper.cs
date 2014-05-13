@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CommonLibrary
 {
-    public class SqlHelper
+    public class DBHelper
     {
         public static DataSet ExecuteSqlCommand(string connectionString, string command)
         {
