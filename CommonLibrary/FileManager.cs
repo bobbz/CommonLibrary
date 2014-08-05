@@ -66,6 +66,45 @@ namespace CommonLibrary
                 }
             }
         }
+
+        private static Object lockObj = new Object();
+        public static void AppendWriteFile(string content, string fileName, bool overWrite = false)
+        {
+            if (!File.Exists(fileName))
+            {
+                throw new Exception(string.Format("File '{0}' does not exist!", fileName));
+            }
+
+            lock (lockObj)
+            {
+                try
+                {
+                    if (overWrite)
+                    {
+                        //clear all the content of this file.
+                        File.Create(fileName).Close();
+                    }
+                    using (TextWriter file = File.AppendText(fileName))
+                    {
+
+                        file.Write(content);
+                        file.Flush();
+                        file.Close();
+                    }
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    // this can happen if we are impersonating another user 
+                    // and / or don't have rights to the file location
+                    // let it go. 
+                }
+                catch (System.IO.IOException)
+                {
+                    // this happens when two processes write at the same time.
+                    // the lock cannot synchronize across two processes}
+                }
+            }
+        }
         public static string FindLargestFile(string path, string fileExtention, bool allDirectories)
         {
             string sPatten = string.Format("*.{0}", fileExtention);
